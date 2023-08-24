@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import '../components/css/index.scss'
-import Compoents from '../components/index' 
+import Compoents from '../components/index'
 import App from './App.vue'
 
 const app = createApp(App)

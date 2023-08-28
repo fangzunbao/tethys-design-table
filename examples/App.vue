@@ -1,23 +1,14 @@
 <template>
   <div class="td-container">
-    <td-basic-table
-      ref="TdBasicTableRef"
-      :columns="columns"
-      :data="data"
-      show-summary
-      sum-text="总计"
-      show-overflow-tooltip
+    <el-button type="primary" @click="addRow">新增一行</el-button>
+    <tethys-table
       border
       stripe
       size="small"
-    >
-      <!-- <template #operate="{row,index}">
-       {{ row.name }} {{ index }}
-      </template> -->
-      <!-- <template #empty>
-     
-    </template> -->
-    </td-basic-table>
+      :data="data"
+      :columns="columns"
+      @removeEdit="removeEdit"
+    ></tethys-table>
   </div>
 </template>
 
@@ -28,8 +19,6 @@ export default {
 </script>
 <script setup lang="ts">
 import { ref } from 'vue'
-
-const TdBasicTableRef = ref()
 
 const columns = [
   {
@@ -45,6 +34,7 @@ const columns = [
   {
     title: '姓名',
     key: 'name',
+    editable: true,
   },
   {
     title: '年龄',
@@ -53,23 +43,30 @@ const columns = [
   {
     title: '性别',
     key: 'gender',
+    render(h, { row }) {
+      return row.gender === 0 ? '男' : '女'
+    },
   },
   {
     title: '成绩',
     key: 'grade',
+    editable: true,
   },
   {
     title: '描述',
     key: 'desc',
-  },
-  {
-    title: '操作',
-    key: 'operate',
-    align: 'center',
+    tooltip: true,
   },
 ]
-
-const data = ref([
+interface TableType {
+  id: number
+  name: string
+  age: number
+  gender: number
+  grade: number
+  desc: string
+}
+const data = ref<TableType[]>([
   {
     id: 1,
     name: '张三',
@@ -111,6 +108,15 @@ const data = ref([
     desc: '',
   },
 ])
+
+const addRow = () => {
+  const newRow = {} as TableType
+  data.value.push(newRow)
+}
+
+const removeEdit = (value: string) => {
+  console.log(11, value)
+}
 </script>
 <style scoped>
 .td-container {

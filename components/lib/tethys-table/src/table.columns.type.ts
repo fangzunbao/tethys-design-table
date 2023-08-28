@@ -116,4 +116,8 @@ export interface ColumnsType {
    * 自定义单元格内容渲染（tsx 语法、h 语法）
    */
   render: Function
+  /**
+   * 单元格可编辑
+   */
+  editable?: false
 }

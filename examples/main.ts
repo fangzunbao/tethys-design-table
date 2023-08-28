@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import '../components/css/index.scss'
+import './styles/reset.scss'
 import Compoents from '../components/index'
 import App from './App.vue'
 

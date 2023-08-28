@@ -120,4 +120,13 @@ export interface ColumnsType {
    * 单元格可编辑
    */
   editable?: false
+  /**
+   * 编辑框类型
+   * input：输入框（默认值） select：选择框
+   */
+  type?: string
+  /**
+   * select选项的值
+   */
+  options?: []
 }

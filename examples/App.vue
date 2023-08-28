@@ -1,14 +1,6 @@
 <template>
   <div class="td-container">
-    <el-button type="primary" @click="addRow">新增一行</el-button>
-    <tethys-table
-      border
-      stripe
-      size="small"
-      :data="data"
-      :columns="columns"
-      @removeEdit="removeEdit"
-    ></tethys-table>
+    <tethys-table border stripe :data="data" :columns="columns"></tethys-table>
   </div>
 </template>
 
@@ -43,9 +35,18 @@ const columns = [
   {
     title: '性别',
     key: 'gender',
-    render(h, { row }) {
-      return row.gender === 0 ? '男' : '女'
-    },
+    editable: true,
+    type: 'select',
+    options: [
+      {
+        value: '0',
+        label: '男',
+      },
+      {
+        value: '1',
+        label: '女',
+      },
+    ],
   },
   {
     title: '成绩',
@@ -108,15 +109,6 @@ const data = ref<TableType[]>([
     desc: '',
   },
 ])
-
-const addRow = () => {
-  const newRow = {} as TableType
-  data.value.push(newRow)
-}
-
-const removeEdit = (value: string) => {
-  console.log(11, value)
-}
 </script>
 <style scoped>
 .td-container {

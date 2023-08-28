@@ -3,17 +3,36 @@
     <template
       v-if="columnEdit && currentRowIndex === index && columnKey === column.key"
     >
-      <input
+      <el-select
+        v-if="column.type === 'select'"
+        class="input-column"
+        ref="selectRef"
+        @blur="selectBlur"
+        v-model="row[column.key]"
+        placeholder="请选择相应数据"
+      >
+        <el-option
+          v-for="item in column.options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
+      <el-input
+        v-else
         ref="inputRef"
         class="input-column"
         type="text"
-        @blur="blur"
+        @blur="inputBlur"
         v-model="row[column.key]"
         placeholder="请输入相关数据"
       />
     </template>
     <template v-else>
-      <div class="table-column">{{ row[column.key] }}</div>
+      <div v-if="column.type === 'select'">
+        {{ column.options[row[column.key]]?.label }}
+      </div>
+      <div class="table-column" v-else>{{ row[column.key] }}</div>
     </template>
   </div>
 </template>
@@ -24,11 +43,10 @@ export default {
 </script>
 <script setup lang="ts">
 import { ref, watch, nextTick } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import type { Action } from 'element-plus'
 import type { ColumnsType } from '../table.columns.type'
 
 const inputRef = ref()
+const selectRef = ref()
 const columnEdit = ref(false)
 const props = defineProps({
   row: {
@@ -54,11 +72,15 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['removeEdit'])
+const emits = defineEmits(['finishInputEdit', 'finishSelectEdit'])
 
 // 输入框失去焦点
-const blur = () => {
-  emits('removeEdit', props.row[props.column.key])
+const inputBlur = () => {
+  emits('finishInputEdit', props.row[props.column.key])
+}
+// 选择框失去焦点
+const selectBlur = () => {
+  emits('finishSelectEdit', props.row[props.column.key])
 }
 
 watch(
@@ -72,6 +94,7 @@ watch(
     ) {
       nextTick(() => {
         inputRef.value && inputRef.value.focus()
+        selectRef.value && selectRef.value.focus()
       })
     }
   },
@@ -84,11 +107,34 @@ watch(
   top: 0;
   right: 0;
   bottom: 0;
-  border: 1px solid var(--el-color-primary);
-  color: var(--el-color-primary);
-  background-color: var(--el-color-primary-light-9);
-  outline: none;
-  padding: 0 16px;
+}
+.el-input {
+  padding: 0;
+  border: none;
+  :deep(.el-input__wrapper) {
+    box-shadow: none;
+    border-radius: 0;
+    background-color: var(--el-color-primary-light-9);
+    color: var(--el-color-primary);
+    border: 1px solid var(--el-color-primary);
+  }
+  :deep(.el-input__inner) {
+    color: var(--el-color-primary);
+  }
+}
+.el-select {
+  padding: 0;
+  border: none;
+  :deep(.el-input__wrapper) {
+    box-shadow: none;
+    border-radius: 0;
+    background-color: var(--el-color-primary-light-9);
+    color: var(--el-color-primary);
+    border: 1px solid var(--el-color-primary);
+  }
+  :deep(.el-input__inner) {
+    color: var(--el-color-primary);
+  }
 }
 .table-column {
   color: #606266;

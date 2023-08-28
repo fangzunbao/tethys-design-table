@@ -56,7 +56,8 @@
           :currentRowIndex="currentRowIndex"
           :isEdit="isEdit"
           :columnKey="columnKey"
-          @removeEdit="(value) => emits('removeEdit', value)"
+          @finishInputEdit="(value) => emits('finishInputEdit', value)"
+          @finishSelectEdit="(value) => emits('finishSelectEdit', value)"
         ></editable-column>
       </template>
       <!-- 自定义render -->
@@ -99,6 +100,6 @@ defineProps({
   },
 })
 
-const emits = defineEmits(['removeEdit'])
+const emits = defineEmits(['finishInputEdit', 'finishSelectEdit'])
 </script>
 <style scoped lang="scss"></style>

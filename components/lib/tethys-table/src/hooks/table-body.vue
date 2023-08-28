@@ -5,7 +5,8 @@
       :isEdit="isEdit"
       :columnKey="columnKey"
       :currentRowIndex="currentRowIndex"
-      @removeEdit="(value) => emits('removeEdit', value)"
+      @finishInputEdit="(value) => emits('finishInputEdit', value)"
+      @finishSelectEdit="(value) => emits('finishSelectEdit', value)"
     ></table-column>
   </template>
 </template>
@@ -36,6 +37,6 @@ defineProps({
   },
 })
 
-const emits = defineEmits(['removeEdit'])
+const emits = defineEmits(['finishInputEdit', 'finishSelectEdit'])
 </script>
 <style scoped lang="scss"></style>

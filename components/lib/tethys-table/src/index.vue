@@ -90,7 +90,8 @@
       :isEdit="isEdit"
       :columnKey="columnKey"
       :currentRowIndex="currentRowIndex"
-      @removeEdit="removeEdit"
+      @finishInputEdit="finishInputEdit"
+      @finishSelectEdit="finishSelectEdit"
     ></TableBody>
     <template #append>
       <slot name="append"></slot>
@@ -138,15 +139,24 @@ const emits = defineEmits<{
   (e: 'current-change', currentRow, oldCurrentRow): void
   (e: 'header-dragend', newWidth, oldWidth, column, event): void
   (e: 'expand-change', row, expand): void
-  (e: 'removeEdit', value): string | number
+  (e: 'finishInputEdit', value): string | number
+  (e: 'finishSelectEdit', value): string | number
 }>()
 
 /**
  * 取消编辑
  */
-const removeEdit = (value) => {
+const finishInputEdit = (value) => {
   isEdit.value = false
-  emits('removeEdit', value)
+  emits('finishInputEdit', value)
+}
+
+/**
+ * 完成选项框编辑
+ */
+const finishSelectEdit = (value) => {
+  isEdit.value = false
+  emits('finishSelectEdit', value)
 }
 
 /**

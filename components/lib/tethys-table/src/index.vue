@@ -100,6 +100,13 @@
       <slot name="empty"></slot>
     </template>
   </el-table>
+  <!-- 分页器 -->
+  <table-pagination
+    v-if="pagination"
+    :pagination="pagination"
+    @size-change="(value: number) => emits('size-change', value)"
+    @current-change="(value: number) => emits('current-change', value)"
+  ></table-pagination>
 </template>
 
 <script lang="ts">
@@ -110,6 +117,7 @@ export default {
 <script setup lang="ts">
 import { ref } from 'vue'
 import TableBody from './hooks/table-body.vue'
+import TablePagination from './hooks/table-pagination.vue'
 import TethysTableProps from './table.props.type'
 
 const ElTableRef = ref()
@@ -141,6 +149,8 @@ const emits = defineEmits<{
   (e: 'expand-change', row, expand): void
   (e: 'finishInputEdit', value): string | number
   (e: 'finishSelectEdit', value): string | number
+  (e: 'size-change', value): number
+  (e: 'current-change', value): number
 }>()
 
 /**

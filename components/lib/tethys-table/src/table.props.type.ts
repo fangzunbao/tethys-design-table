@@ -259,4 +259,11 @@ export default {
     type: Array as PropType<ColumnsType[]>,
     default: () => [] as ColumnsType[],
   },
+  /**
+   * 分页器
+   */
+  pagination: {
+    type: [Object, Boolean],
+    default: true || {},
+  },
 }

@@ -10,6 +10,7 @@ declare module 'vue' {
     ElButton: (typeof import('element-plus/es'))['ElButton']
     ElInput: (typeof import('element-plus/es'))['ElInput']
     ElOption: (typeof import('element-plus/es'))['ElOption']
+    ElPagination: (typeof import('element-plus/es'))['ElPagination']
     ElPopconfirm: (typeof import('element-plus/es'))['ElPopconfirm']
     ElSelect: (typeof import('element-plus/es'))['ElSelect']
     ElTable: (typeof import('element-plus/es'))['ElTable']

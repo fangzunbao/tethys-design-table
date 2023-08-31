@@ -56,7 +56,9 @@
           :currentRowIndex="currentRowIndex"
           :isEdit="isEdit"
           :columnKey="columnKey"
-          @finishInputEdit="(value) => emits('finishInputEdit', value)"
+          @finishInputEdit="
+            (value, isEdit) => emits('finishInputEdit', value, isEdit)
+          "
           @finishSelectEdit="(value) => emits('finishSelectEdit', value)"
         ></editable-column>
       </template>
@@ -79,9 +81,11 @@ export default {
 }
 </script>
 <script setup lang="ts">
+import { PropType } from 'vue'
 import Render from '../render'
 import EditableColumn from './editable-column.vue'
 import type { ColumnsType } from '../table.columns.type'
+import type { RuleItem } from '../editable.props.type'
 
 defineProps({
   col: {

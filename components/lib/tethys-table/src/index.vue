@@ -156,8 +156,8 @@ const emits = defineEmits<{
 /**
  * 取消编辑
  */
-const finishInputEdit = (value) => {
-  isEdit.value = false
+const finishInputEdit = (value, editStatus) => {
+  isEdit.value = editStatus
   emits('finishInputEdit', value)
 }
 

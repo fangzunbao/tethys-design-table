@@ -129,4 +129,8 @@ export interface ColumnsType {
    * select选项的值
    */
   options?: []
+  /**
+   * 变淡校验规则
+   */
+  rule?: []
 }

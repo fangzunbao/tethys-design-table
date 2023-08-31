@@ -5,7 +5,9 @@
       :isEdit="isEdit"
       :columnKey="columnKey"
       :currentRowIndex="currentRowIndex"
-      @finishInputEdit="(value) => emits('finishInputEdit', value)"
+      @finishInputEdit="
+        (value, isEdit) => emits('finishInputEdit', value, isEdit)
+      "
       @finishSelectEdit="(value) => emits('finishSelectEdit', value)"
     ></table-column>
   </template>
@@ -20,7 +22,9 @@ export default {
 import { PropType } from 'vue'
 import TableColumn from './table-column.vue'
 import type { ColumnsType } from '../table.columns.type'
-defineProps({
+import type { RuleItem } from '../editable.props.type'
+
+const props = defineProps({
   columns: {
     type: Array as PropType<ColumnsType[]>,
     default: () => [] as ColumnsType[],

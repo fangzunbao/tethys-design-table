@@ -27,6 +27,19 @@ const columns = [
     title: '姓名',
     key: 'name',
     editable: true,
+    rule: [
+      {
+        require: true,
+        message: '姓名不能为空',
+        trigger: 'change',
+      },
+      {
+        min: 3,
+        max: 5,
+        message: '姓名长度要在3-5个字符',
+        trigger: 'change',
+      },
+    ],
   },
   {
     title: '年龄',

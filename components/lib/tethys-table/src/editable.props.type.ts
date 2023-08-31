@@ -10,3 +10,11 @@ export interface PaginationProps {
   pageSize?: number[]
   total?: number
 }
+
+export interface RuleItem {
+  min?: number
+  max?: number
+  require?: boolean
+  message?: string
+  trigger?: string
+}
